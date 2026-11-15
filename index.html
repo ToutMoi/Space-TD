@@ -12,7 +12,7 @@
     --bg: #04060c; --panel: rgba(9, 15, 28, .82); --line: rgba(120, 170, 230, .18); --line2: rgba(120, 190, 255, .4);
     --text: #e3ebf7; --muted: #8796ad; --accent: #f5a83c; --ink: #1c1205;
     --metal: #c9d1dc; --crystal: #6fd3ff; --hydrogen: #7dffb0; --energy: #ffd25a; --research: #c59bff;
-    --bad: #ff6457; --good: #5fe39b; --eco: #f5a83c; --def: #5ab4ff; --cmd: #c59bff; --asc: #ffd86b;
+    --bad: #ff6457; --good: #5fe39b; --eco: #f5a83c; --def: #5ab4ff; --cmd: #c59bff; --asc: #ffd86b; --adm: #9ff0ff;
     --display: "Bahnschrift", "Rajdhani", "Segoe UI Semibold", "Arial Narrow", sans-serif;
     --body: "Segoe UI", "Inter", system-ui, sans-serif;
   }
@@ -98,6 +98,8 @@
   .flagcard .fh svg { width: 52px; height: 52px; flex: none; }
   .flagcard .fh b { font-family: var(--display); font-size: 18px; color: #9ff0ff; display: block; }
   .flagcard .fh small { color: var(--muted); font-size: 12px; }
+  .flagcard { min-width: 0; overflow-wrap: anywhere; } .flagcard .stats { flex-wrap: wrap; row-gap: 2px; } .flagcard .fh > div { min-width: 0; }
+  .node { min-width: 0; overflow-wrap: break-word; hyphens: auto; }
   .orders button.lance { border-color: #9ff0ff66; } .orders button.lance b { color: #9ff0ff; }
   .flagdown { color: var(--muted); text-align: center; font-size: 13px; padding: 6px; border: 1px dashed var(--line); border-radius: 8px; }
   .loot { border: 1px solid #ffd86b66; background: #2a220a40; border-radius: 10px; padding: 10px 12px; margin: 8px 0 4px; text-align: center; }
@@ -183,13 +185,13 @@
   .hint { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); color: #9fb3d1; font-size: 13px; background: #060a14c0; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--line); }
   .pausebox h2 { font-size: 48px; }
   /* the specialisation tree */
-  .treebox { width: min(1400px, 98vw) !important; max-height: 94vh; display: flex; flex-direction: column; padding: 18px 22px !important; }
+  .treebox { width: min(1600px, 99vw) !important; max-height: 94vh; display: flex; flex-direction: column; padding: 18px 22px !important; }
   .treehead { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
   .treehead h2 { font-size: 32px; }
   .treehead .pts { margin-left: auto; text-align: right; }
   .treehead .pts b { font-size: 34px; color: var(--cmd); line-height: 1; }
   .treehead .pts small { display: block; color: var(--muted); font-size: 12px; }
-  .treecols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; overflow-y: auto; }
+  .treecols { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; overflow-y: auto; }
   .branch { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; background: #070d1a80; }
   .branch h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: .1em; display: flex; align-items: center; gap: 8px; }
   .tier { display: flex; gap: 8px; position: relative; padding-top: 14px; }
@@ -200,6 +202,20 @@
   .node .nm { font-family: var(--display); font-weight: 600; font-size: 15px; line-height: 1.15; }
   .node .rk { font-size: 12px; color: var(--muted); }
   .node .ef { grid-column: 1 / 3; font-size: 12px; color: #b9c6da; line-height: 1.3; }
+  .kshead { font-family: var(--display); font-size: 12px; letter-spacing: .12em; color: var(--bc); text-transform: uppercase; text-align: center; margin: 12px 0 -6px; opacity: .9; }
+  .statsbox { width: min(1500px, 98vw) !important; max-height: 94vh; display: flex; flex-direction: column; padding: 18px 22px !important; }
+  .scols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; overflow-y: auto; margin-top: 12px; }
+  .scard { border: 1px solid var(--line); border-top: 2px solid var(--bc); border-radius: 12px; padding: 10px 12px; background: #070d1a80; }
+  .scard h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: .08em; display: flex; align-items: center; gap: 8px; }
+  .srow { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; padding: 6px 0; border-top: 1px solid #ffffff0d; }
+  .srow:first-of-type { border-top: none; }
+  .srow .sl { font-size: 14px; color: var(--text); } .srow .sl small { display: block; color: var(--muted); font-size: 11.5px; line-height: 1.3; }
+  .srow .sv { font-family: var(--display); font-size: 17px; font-weight: 600; color: var(--bc); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .srow .sv.long { grid-column: 1 / 3; text-align: left; white-space: normal; font-size: 15px; margin-top: 2px; }
+  .scols { overflow-x: hidden; }
+  .srow .src { grid-column: 1 / 3; display: flex; flex-wrap: wrap; gap: 3px 10px; margin-top: 3px; font-size: 11.5px; color: var(--muted); }
+  .srow .src b { color: #c9d6ea; font-weight: 600; }
+  .statbtn { display: flex; align-items: center; gap: 6px; } .statbtn span { font-family: var(--display); font-size: 13px; letter-spacing: .06em; }
   .node .co { grid-column: 1 / 3; font-size: 12px; color: var(--cmd); font-family: var(--display); }
   .node.has { border-color: var(--bc); box-shadow: inset 0 0 18px -8px var(--bc); }
   .node.max { border-color: var(--accent); }
@@ -226,7 +242,7 @@ const params = new URLSearchParams(location.search);
 const tune = new Proxy({}, { get: (_, k) => CONFIG[k].value });
 const STEP = 1 / 60;
 const TITLE = 'Rempart II';
-const CONTROLS = ['Souris : construire, défendre, rechercher', 'Glisser / molette : tourner autour de la planète', '1 · 2 · 3 : ordres pendant la bataille · 4 : Lance de l’amiral', 'Entrée : lancer la vague / round suivant', 'Espace : pause · M : muet · T : arbre de spécialisation (entre deux parties)'];
+const CONTROLS = ['Souris : construire, défendre, rechercher', 'Glisser / molette : tourner autour de la planète', '1 · 2 · 3 : ordres pendant la bataille · 4 : Lance de l’amiral', 'Entrée : lancer la vague / round suivant', 'Espace : pause · M : muet · I : statistiques · T : arbre de spécialisation (entre deux parties)'];
 const clock = window.GAME_CLOCK || { now: () => performance.now() / 1000 };
 const CHEAP = params.get('render') === 'cheap';
 let seed;
@@ -306,7 +322,7 @@ function load(k) { try { const v = localStorage.getItem(k); return v ? JSON.pars
 
 // ---- Specialisation tree: points earned every run, kept between runs -------------------------
 const TREE = DATA.tree, NODE = Object.fromEntries(TREE.map(n => [n.id, n]));
-const BRANCHES = [['eco', 'Économie', 'var(--eco)', 'metal'], ['def', 'Défense', 'var(--def)', 'shield'], ['cmd', 'Commandement', 'var(--cmd)', 'focus'], ['asc', 'Ascension', 'var(--asc)', 'star']];
+const BRANCHES = [['eco', 'Économie', 'var(--eco)', 'metal'], ['def', 'Défense', 'var(--def)', 'shield'], ['cmd', 'Commandement', 'var(--cmd)', 'focus'], ['adm', 'Amiral', 'var(--adm)', 'flag'], ['asc', 'Ascension', 'var(--asc)', 'star']];
 let meta = Object.assign({ points: 0, earned: 0, runs: 0, ranks: {}, shards: 0, wins: 0, ascMax: 0, ascSel: 0 }, load(META_KEY) || {});
 // Ascension: the run's level; each level adds its rule to those below it
 let runAsc = 0;
@@ -318,19 +334,36 @@ const doctrine = () => tune.asc_doctrine * R('asc_doctrine');
 const R = id => meta.ranks[id] || 0;
 function saveMeta() { store(META_KEY, meta); }
 const purse = n => n.currency === 'shards' ? 'shards' : 'points';
-function nodeOpen(n) { if (n.branch === 'asc' && !meta.wins) return false; if (n.tier === 1) return true; return TREE.some(o => o.branch === n.branch && o.tier === n.tier - 1 && R(o.id) > 0); }
+const rankCost = (n, r) => n.currency === 'shards' ? n.cost : n.cost * (r + 1);        // the price of rank r+1
+const nodeSpent = (n, r = R(n.id)) => n.currency === 'shards' ? n.cost * r : n.cost * r * (r + 1) / 2;
+const branchSpent = b => TREE.filter(n => n.branch === b).reduce((a, n) => a + nodeSpent(n), 0);
+const tierGate = t => t <= 1 ? 0 : tune['tree_gate_' + t] || 0;
+const keyTaken = n => n.group && TREE.some(o => o.group === n.group && o.id !== n.id && R(o.id) > 0);
+function nodeOpen(n) {
+  if (n.branch === 'asc') { if (!meta.wins) return false; if (n.tier === 1) return true; return TREE.some(o => o.branch === n.branch && o.tier === n.tier - 1 && R(o.id) > 0); }
+  return !keyTaken(n) && branchSpent(n.branch) >= tierGate(n.tier);
+}
+// old saves: the tree changed scale, so ranks bought in points are given back at the new scale, once
+if ((meta.v || 1) < 2) {
+  const kept = {}; for (const id in meta.ranks) if (NODE[id] && NODE[id].currency === 'shards') kept[id] = meta.ranks[id];
+  meta.points = Math.round((meta.earned || 0) / tune.meta_refund_div); meta.earned = meta.points; meta.ranks = kept; meta.v = 2; meta.migrated = (meta.earned || 0) > 0;
+}
 function buyNode(id) {
-  const n = NODE[id]; if (!n || R(id) >= n.max || !nodeOpen(n) || meta[purse(n)] < n.cost) { sfx('no'); return; }
-  meta[purse(n)] -= n.cost; meta.ranks[id] = R(id) + 1; saveMeta(); sfx('node'); hudDirty = true;
+  const n = NODE[id]; if (!n || R(id) >= n.max || !nodeOpen(n) || meta[purse(n)] < rankCost(n, R(id))) { sfx('no'); return; }
+  meta[purse(n)] -= rankCost(n, R(id)); meta.ranks[id] = R(id) + 1; saveMeta(); sfx('node'); hudDirty = true;
   events.push({ type: 'node', id });
 }
-function respec() { for (const id in meta.ranks) meta[purse(NODE[id])] += meta.ranks[id] * NODE[id].cost; meta.ranks = {}; saveMeta(); sfx('click'); hudDirty = true; }
+function respec() { for (const id in meta.ranks) if (NODE[id]) meta[purse(NODE[id])] += nodeSpent(NODE[id], meta.ranks[id]); meta.ranks = {}; saveMeta(); sfx('click'); hudDirty = true; }
 function nodeText(n) {
   const v = n.key ? tune[n.key] : 0;
   return n.desc.replace('{p}', `${Math.round(v * 100)} %`).replace('{v}', String(v))
     .replace('{start}', `${fmt(tune.meta_start_metal)} métal, ${fmt(tune.meta_start_crystal)} cristal, ${fmt(tune.meta_start_hydrogen)} hydrogène`);
 }
-function pointsFor(wave) { return Math.round((tune.meta_pts_wave + Math.floor(wave / tune.meta_pts_every) + (isBoss(wave) ? tune.meta_pts_boss : 0)) * (1 + tune.asc_points_bonus * runAsc)); }
+const ptsMult = () => 1 + tune.asc_points_bonus * runAsc;
+function pointsFor(wave) { // holding this wave: a point every meta_pts_waves waves held, the boss, the win
+  const p = ((state.wavesHeld + 1) % tune.meta_pts_waves === 0 ? 1 : 0) + (isBoss(wave) ? tune.meta_pts_boss : 0) + (wave >= finalWave() ? tune.meta_pts_win : 0);
+  return Math.round(p * ptsMult());
+}
 // ---- Artefacts: boss loot, kept for the run ----
 const ART = DATA.artifacts, ARTN = Object.fromEntries(ART.map(a => [a.id, a]));
 let runArts = [];
@@ -361,13 +394,14 @@ function energy(s) {
   return { produced: Math.floor(p), used: Math.ceil(u) };
 }
 function perWave(s) {
-  const e = energy(s), ratio = e.used === 0 ? 1 : Math.min(1, e.produced / e.used), boost = 1 + tune.meta_prod * R('eco_prod') + art('prod');
+  const e = energy(s), ratio = e.used === 0 ? 1 : Math.min(1, e.produced / e.used), boost = 1 + tune.meta_prod * R('eco_prod') + tune.ks_prod * R('ks_eco_war') + art('prod');
   const h = { metal: tune.base_metal_per_hour, crystal: tune.base_crystal_per_hour, hydrogen: tune.base_hydrogen_per_hour + tune.meta_hydro * R('eco_hydro') + tune.asc_hydro * R('asc_reserve') };
   for (const k in B) { const b = B[k]; if (b.produces !== 'energy') h[b.produces] += lvlProd(b.perLevel, s.buildings[k]) * ratio * boost; }
   return { metal: Math.floor(h.metal * tune.hours_per_wave), crystal: Math.floor(h.crystal * tune.hours_per_wave), hydrogen: Math.floor(h.hydrogen * tune.hours_per_wave) };
 }
 function unlocked(s, k) { const n = DEF[k].needs; if (!n) return true; for (const r in n) if (s.research[r] < n[r]) return false; return true; }
 function earlyShare(s) { return tune.early_bonus * (1 + tune.meta_scout * R('eco_scout')) * Math.max(0, Math.min(1, s.countdown / countdownMax())); }
+const debrisShare = () => (tune.debris_share + tune.meta_debris * R('eco_debris') + tune.ks_debris * R('ks_eco_scrap') + art('debris')) * (asc(6) ? 1 - tune.asc_debris : 1);
 function earlyBonus(s) {
   const f = earlyShare(s), p = perWave(s);
   return { metal: Math.floor(p.metal * f), crystal: Math.floor(p.crystal * f), hydrogen: Math.floor(p.hydrogen * f) };
@@ -460,7 +494,8 @@ function fire(r, A, T, atkMult, focus, rec) {
   let pool = null;
   if (focus) { pool = []; for (let j = 0; j < n; j++) if (T.type[j] === focus && T.hull[j] > 0) pool.push(j); if (!pool.length) pool = null; }
   for (let i = 0; i < A.type.length; i++) {
-    const rf = A.table[A.type[i]].rapidFire;
+    const rf = A.table[A.type[i]].rapidFire, shots = A.table[A.type[i]].shots || 1;
+    for (let sh = 0; sh < shots; sh++) {
     let more = true;
     while (more) {
       const j = pool ? pool[Math.floor(r() * pool.length)] : Math.floor(r() * n);
@@ -468,6 +503,7 @@ function fire(r, A, T, atkMult, focus, rec) {
       if (rec) { if (rec.shots.length < 300) rec.shots.push([A.id[i], A.type[i], T.id[j], T.type[j], killed]); else if (killed) rec.shots.push([A.id[i], A.type[i], T.id[j], T.type[j], true]); rec.count++; }
       const k = rf ? (rf[T.type[j]] || 0) : 0;
       more = k > 1 && r() < (k - 1) / k;
+    }
     }
   }
 }
@@ -482,25 +518,41 @@ function playRound(r, D, E, mods, rec, w) {
   bossPhase(r, D, E, w, rec);
   if (mods.shield) for (let j = 0; j < D.type.length; j++) D.shield[j] = D.shieldMax[j] * shieldMult();
   fire(r, E, D, 1, null, rec && rec.enemy);
-  const atk = (mods.over ? overMult() : 1) * (mods.focus ? 1 + tune.meta_focus * R('cmd_focus') : 1);
+  const atk = (mods.over ? overMult() : 1) * (mods.focus ? 1 + tune.meta_focus * R('cmd_focus') : 1) * (D.aura && D.type.includes('flagship') ? 1 + D.aura : 1);
   fire(r, D, E, atk, mods.focus || null, rec && rec.def);
   compact(D); compact(E);
 }
-function defMult(s) { const b = tune.research_bonus, d = doctrine(); return { attack: 1 + s.research.weapons * b + tune.meta_attack * R('def_attack') + d + art('atk'), shield: 1 + s.research.shielding * b + tune.meta_shield * R('def_shield') + d + art('shield'), hull: 1 + s.research.armour * b + tune.meta_hull * R('def_hull') + d + art('hull') }; }
+function defMult(s) { const b = tune.research_bonus, d = doctrine(); return { attack: 1 + s.research.weapons * b + tune.meta_attack * R('def_attack') + tune.ks_guns * R('ks_def_guns') + d + art('atk'), shield: 1 + s.research.shielding * b + tune.meta_shield * R('def_shield') + tune.ks_wall * R('ks_def_wall') + d + art('shield'), hull: 1 + s.research.armour * b + tune.meta_hull * R('def_hull') + tune.ks_wall * R('ks_def_wall') + d + art('hull') }; }
 // ---- Flagship: your own ship, fights beside the defences, comes back repaired each wave ----
-const FLAG_UPS = { weapons: ['Armement', 'Attaque ×' ], hull: ['Coque', 'Bouclier et structure ×'], lance: ['Lance', 'Dégâts de la Lance +'] };
+const FLAG_UPS = { weapons: ['Armement', 'Attaque ×' ], hull: ['Coque', 'Bouclier et structure ×'], lance: ['Lance', 'Dégâts de la Lance +'], bridge: ['Pont de commandement', 'Aura +'] };
+const FLAG0 = () => ({ weapons: 0, hull: 0, lance: 0, bridge: 0, vet: tune.meta_vet_start * R('adm_vet') });
+const flagAura = s => (tune.flag_aura + tune.flag_aura_per_level * s.flag.bridge + tune.meta_aura * R('adm_aura')) * (R('ks_adm_mother') ? 2 : 1);
+const flagShots = s => tune.flag_shots + Math.floor(s.flag.weapons / 2) + tune.meta_salvo * R('adm_salvo');
+const flagVet = s => 1 + tune.flag_vet * (s.flag.vet || 0);
+const lancePct = s => tune.lance_pct + tune.lance_pct_per_level * s.flag.lance + tune.meta_lance_pct * R('adm_lance');
+const lancesPerBattle = () => 1 + art('lance') + R('ks_adm_twin');
 const flagCost = (k, l) => cost3([tune.flag_cost_metal, tune.flag_cost_crystal, tune.flag_cost_hydrogen], Math.pow(tune.flag_cost_factor, l));
 function flagUnit(s) {
-  const m = defMult(s), f = s.flag, g = tune.flag_growth, k = 1 + art('flag');
-  return { name: 'Vaisseau amiral', attack: tune.flag_attack * Math.pow(g, f.weapons) * m.attack * k, shield: tune.flag_shield * Math.pow(g, f.hull) * m.shield, hull: tune.flag_hull * Math.pow(g, f.hull) * m.hull * k };
+  const m = defMult(s), f = s.flag, g = tune.flag_growth, k = (1 + art('flag') + tune.meta_flag * R('adm_crew')) * flagVet(s);
+  return { name: 'Vaisseau amiral', shots: flagShots(s), attack: tune.flag_attack * Math.pow(g, f.weapons) * m.attack * k, shield: tune.flag_shield * Math.pow(g, f.hull) * m.shield * k, hull: tune.flag_hull * Math.pow(g, f.hull) * m.hull * k };
 }
 const lanceMult = s => tune.lance_mult + tune.lance_per_level * s.flag.lance;
-const lanceDamage = s => flagUnit(s).attack * lanceMult(s);
+const lanceDamage = s => flagUnit(s).attack * lanceMult(s); // plus lancePct of the target's full structure
+// Adaptation: from adapt_from, the fleet comes with rapid fire against your main defence (by value)
+const plural = n => { let stop = false; return n.split(" ").map((w, i) => { if (w === "de" || w === "à") stop = true; const p = stop || /s$/.test(w) ? w : w + "s"; return i ? p : p[0].toLowerCase() + p.slice(1); }).join(" "); }; // Laser lourd -> lasers lourds
+function adaptTarget(s) {
+  if (s.wave < tune.adapt_from || tune.adapt_rapid <= 1) return null;
+  let best = null, bv = 0;
+  for (const k of DEF_ORDER) { if (DEF[k].dome) continue; const v = (s.defenses[k] || 0) * valueOf(DEF[k].cost); if (v > bv) { bv = v; best = k; } }
+  return best;
+}
 function sides(s, fleet) {
   const m = enemyMult(s.wave);
-  const D = makeSide(s.defenses, { ...DEF, flagship: flagUnit(s) }, DEF_ORDER, defMult(s)); D.def = true;
+  const D = makeSide(s.defenses, { ...DEF, flagship: flagUnit(s) }, DEF_ORDER, defMult(s)); D.def = true; D.aura = flagAura(s);
   addUnits(D, 'flagship', 1, { attack: 1, shield: 1, hull: 1 });
-  return { D, E: makeSide(fleet, enemyTable(s.wave), ENEMY_ORDER, { attack: m, shield: m, hull: m }) };
+  const tab = enemyTable(s.wave), ad = adaptTarget(s);
+  if (ad) for (const k of SHIP_ORDER) { const rf = tab[k].rapidFire || {}; tab[k] = { ...tab[k], rapidFire: { ...rf, [ad]: Math.max(tune.adapt_rapid, rf[ad] || 0) } }; }
+  return { D, E: makeSide(fleet, tab, ENEMY_ORDER, { attack: m, shield: m, hull: m }) };
 }
 const countTypes = S => { const c = {}; for (const t of S.type) c[t] = (c[t] || 0) + 1; return c; };
 const rebuildChance = s => Math.min(0.95, tune.rebuild_chance + tune.robotics_rebuild * s.research.robotics + tune.meta_rebuild * R('def_rebuild') + art('rebuild') - (asc(9) ? tune.asc_rebuild : 0));
@@ -531,7 +583,7 @@ function newGame(level = meta.ascSel) {
     research: Object.fromEntries(Object.keys(RS).map(k => [k, ['weapons', 'shielding', 'armour'].includes(k) ? R('asc_heritage') : 0])), asc: runAsc, secondUsed: false,
     res: { metal: tune.start_metal + tune.meta_start_metal * R('eco_start'), crystal: tune.start_crystal + tune.meta_start_crystal * R('eco_start'), hydrogen: tune.start_hydrogen + tune.meta_start_hydrogen * R('eco_start') },
     wavesHeld: 0, pointsRun: 0, report: null, battle: null, fleet: null, sim: null, tab: 'defenses', tutorial: 0,
-    flag: { weapons: 0, hull: 0, lance: 0 }, artifacts: runArts, loot: null, lootPick: null,
+    flag: FLAG0(), artifacts: runArts, loot: null, lootPick: null,
   };
   add(s.res, perWave(s));
   s.fleet = fleetFor(s);
@@ -541,7 +593,7 @@ function reset() { state = newGame(); refreshSim(true); hudDirty = true; scene3d
 function resume(saved) {
   seed = saved.seed + saved.wave * 101;
   state = Object.assign(newGame(saved.asc || 0), saved, { phase: 'build', battle: null, report: null, countdown: countdownMax(), loot: null, lootPick: null });
-  state.flag = Object.assign({ weapons: 0, hull: 0, lance: 0 }, saved.flag || {}); state.artifacts = (saved.artifacts || []).filter(id => ARTN[id]); runArts = state.artifacts;
+  state.flag = Object.assign(FLAG0(), saved.flag || {}); state.artifacts = (saved.artifacts || []).filter(id => ARTN[id]); runArts = state.artifacts;
   state.fleet = fleetFor(state);
   refreshSim(true); hudDirty = true; scene3d && scene3d.onNewGame();
 }
@@ -606,7 +658,7 @@ function launch(early) {
   const bonus = early ? earlyBonus(s) : { metal: 0, crystal: 0, hydrogen: 0 };
   const { D, E } = sides(s, s.fleet);
   s.phase = 'battle';
-  s.battle = { D, E, round: 0, step: 'arrive', t: 0, focus: null, log: [], bonus, startDef: { ...s.defenses }, startFleet: { ...s.fleet }, rec: null, ordersUsed: 0, free: R('cmd_free') > 0 || art('free') > 0, lances: 1 + art('lance') };
+  s.battle = { D, E, round: 0, step: 'arrive', t: 0, focus: null, log: [], bonus, startDef: { ...s.defenses }, startFleet: { ...s.fleet }, rec: null, ordersUsed: 0, free: R('cmd_free') > 0 || art('free') > 0, lances: lancesPerBattle() };
   s.battle.focus = fleetBoss(s.fleet) || topThreat(E); s.battle.boss = fleetBoss(s.fleet); s.battle.jammed = null;
   sfx('warp'); sfx('alarm'); hudDirty = true;
   scene3d.onLaunch(D, E);
@@ -618,7 +670,7 @@ function topThreat(E) {
   return best;
 }
 const ORDER_BASE = () => ({ over: tune.order_overcharge_cost, shield: tune.order_shield_cost, focus: tune.order_focus_cost });
-function currentOrderCost(kind) { const b = state.battle; if (b && b.free) return 0; return orderCost(ORDER_BASE()[kind], state.wave); }
+function currentOrderCost(kind) { const b = state.battle; if (b && (b.free || (R('ks_cmd_supply') && b.round < tune.ks_supply_rounds))) return 0; return orderCost(ORDER_BASE()[kind], state.wave); }
 function giveOrder(kind) {
   const b = state.battle; if (!b || b.step !== 'order') return;
   if (kind === b.jammed) { sfx('no'); return; }
@@ -639,7 +691,7 @@ function fireLance() {
   const s = state, b = s.battle; if (!b || b.step !== 'order') return;
   const fi = b.D.type.indexOf('flagship'); if (fi < 0 || b.lances <= 0) { sfx('no'); return; }
   let j = b.E.type.indexOf(b.focus); if (j < 0) j = b.E.type.findIndex(t => BOSS[t]); if (j < 0) j = 0;
-  const t = b.E.type[j], dmg = b.D.attack[fi] * lanceMult(s) * (BOSS[t] ? bossHunt() : 1);
+  const t = b.E.type[j], dmg = (b.D.attack[fi] * lanceMult(s) + b.E.hullMax[j] * lancePct(s)) * (BOSS[t] ? bossHunt() : 1);
   b.E.hull[j] -= dmg; const killed = b.E.hull[j] <= 0; // straight through the shield
   b.lances--; b.log.push({ round: b.round + 1, lance: true, target: t, dmg, killed });
   scene3d.onLance(b.E.id[j], t, killed); sfx('bigboom'); hudDirty = true;
@@ -671,7 +723,7 @@ function endBattle() {
   const lost = {}, rebuilt = {}, enemyLost = {};
   const chance = rebuildChance(s);
   for (const t of DEF_ORDER) { const l = b.startDef[t] - (leftD[t] || 0); if (l > 0) { lost[t] = l; let r = 0; for (let i = 0; i < l; i++) if (rng() < chance) r++; if (r) rebuilt[t] = r; } }
-  const debris = { metal: 0, crystal: 0, hydrogen: 0 }, dShare = (tune.debris_share + tune.meta_debris * R('eco_debris') + art('debris')) * (asc(6) ? 1 - tune.asc_debris : 1);
+  const debris = { metal: 0, crystal: 0, hydrogen: 0 }, dShare = debrisShare();
   for (const t of ENEMY_ORDER) { const l = (b.startFleet[t] || 0) - (leftE[t] || 0); if (l > 0) { const k = BOSS[t] ? bossScale(s.wave, t) : 1; enemyLost[t] = l; debris.metal += Math.floor(EN(t).cost[0] * k * dShare * l); debris.crystal += Math.floor(EN(t).cost[1] * k * dShare * l); } }
   for (const t of DEF_ORDER) s.defenses[t] = (leftD[t] || 0) + (rebuilt[t] || 0);
   add(s.res, debris);
@@ -683,8 +735,8 @@ function endBattle() {
   if (s.lives <= 0 && R('asc_second') && !s.secondUsed) { s.lives = 1; s.secondUsed = true; second = true; }
   s.nextRespite = winner === 'attacker' && tune.respite > 0;
   let pts = 0;
-  if (winner === 'defender') { s.wavesHeld++; pts = pointsFor(s.wave); }
-  else if (bossDown) pts = tune.meta_pts_boss;
+  if (winner === 'defender') { pts = pointsFor(s.wave); s.wavesHeld++; }
+  else if (bossDown) pts = Math.round(tune.meta_pts_boss * ptsMult());
   if (pts) { meta.points += pts; meta.earned += pts; s.pointsRun += pts; saveMeta(); }
   s.score = s.wavesHeld;
   const victory = winner === 'defender' && s.wave >= finalWave();
@@ -695,7 +747,8 @@ function endBattle() {
     meta.bestAsc = Math.max(meta.bestAsc || 0, runAsc); saveMeta();
   }
   s.loot = bossDown && !victory && s.lives > 0 ? rollLoot(s) : null; s.lootPick = null;
-  s.report = { flagDown: !b.D.type.includes('flagship'), lanceKill: b.log.some(l => l.lance && l.killed && BOSS[l.target]), wave: s.wave, winner, rounds: b.round, lost, rebuilt, enemyLost, enemyLeft: leftE, debris, plunder, bonus: b.bonus, log: b.log, ordersUsed: b.ordersUsed, pts, boss: b.boss, bossDown, victory, shards, unlocked, second };
+  const flagLived = b.D.type.includes('flagship'); if (flagLived) s.flag.vet = (s.flag.vet || 0) + 1;
+  s.report = { flagVet: flagLived ? s.flag.vet : 0, flagDown: !flagLived, lanceKill: b.log.some(l => l.lance && l.killed && BOSS[l.target]), wave: s.wave, winner, rounds: b.round, lost, rebuilt, enemyLost, enemyLeft: leftE, debris, plunder, bonus: b.bonus, log: b.log, ordersUsed: b.ordersUsed, pts, boss: b.boss, bossDown, victory, shards, unlocked, second };
   s.phase = 'report'; hudDirty = true;
   sfx(winner === 'defender' ? 'win' : winner === 'draw' ? 'draw' : 'lose');
   scene3d.onBattleEnd(winner);
@@ -745,8 +798,9 @@ function pickJam(b) { // Silence jams one order each round while it flies
 function updatePlay(dt) {
   const s = state;
   s.t += dt;
-  for (const a of actions.splice(0)) doAction(a);
+  for (const a of actions.splice(0)) { if (a.act === 'stats') { scene = 'stats'; hudDirty = true; sfx('click'); continue; } doAction(a); }
   if (scene !== 'play') return;
+  if (pressed('KeyI')) { scene = 'stats'; hudDirty = true; sfx('click'); return; }
   if (pressed('Space') || pressed('KeyP') || pressed('Escape')) { scene = 'pause'; hudDirty = true; return; }
   if (simDirtyT > 0) { simDirtyT -= dt; if (simDirtyT <= 0) refreshSim(true); }
   if (s.phase === 'build') {
@@ -786,6 +840,7 @@ const ICON = {
   shield: svg('<path d="M12 2.5l7.5 3v6c0 4.7-3.2 8.3-7.5 10-4.3-1.7-7.5-5.3-7.5-10v-6z" fill="#6fd3ff33" stroke="#6fd3ff" stroke-width="1.8" stroke-linejoin="round"/>'),
   hull: svg('<path d="M4 7l8-4 8 4v10l-8 4-8-4z" fill="#c9d1dc22" stroke="#c9d1dc" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" stroke="#c9d1dc" stroke-width="1.4" fill="none"/>'),
   lock: svg('<rect x="5" y="10.5" width="14" height="10" rx="2" fill="#c59bff33" stroke="#c59bff" stroke-width="1.6"/><path d="M8 10.5V8a4 4 0 018 0v2.5" stroke="#c59bff" stroke-width="1.6" fill="none"/>'),
+  stats: svg('<path d="M4 20V12M10 20V5M16 20V9M21 20H3" stroke="#e3ebf7" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="20" cy="5" r="2" fill="#f5a83c"/>'),
   pause: svg('<rect x="6" y="5" width="4" height="14" rx="1" fill="#e3ebf7"/><rect x="14" y="5" width="4" height="14" rx="1" fill="#e3ebf7"/>'),
   sound: svg('<path d="M4 9.5h4l5-4v13l-5-4H4z" fill="#e3ebf7"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11" stroke="#e3ebf7" stroke-width="1.6" fill="none" stroke-linecap="round"/>'),
   soundOff: svg('<path d="M4 9.5h4l5-4v13l-5-4H4z" fill="#8796ad"/><path d="M16 9l5 6M21 9l-5 6" stroke="#ff6457" stroke-width="1.8" stroke-linecap="round"/>'),
@@ -867,6 +922,7 @@ function topBar(s) {
     <div class="chip" title="Points de spécialisation gagnés dans cette partie">${ICON.tree}<div><b style="color:var(--cmd)">+${fmt(s.pointsRun)}</b><small>Spécialisation · total ${fmt(meta.points)}</small></div></div>
     <div class="spacer"></div><div class="lives" title="Vies">${lives.join('')}</div>
     ${s.asc ? `<div class="chip ascchip">${ICON.star}<div><b>A${s.asc}</b><small>Ascension</small></div></div>` : ''}<div class="wave"><small>VAGUE</small><b>${s.wave}</b><small class="of"> / ${finalWave()}</small></div>
+    <button class="ghost statbtn" data-act="stats" title="Statistiques (I)">${ICON.stats}<span>Stats</span></button>
     <button class="ghost" data-act="mute" title="Muet (M)">${muted ? ICON.soundOff : ICON.sound}</button>
     <button class="ghost" data-act="pause" title="Pause (Espace)">${ICON.pause}</button></div>`;
 }
@@ -877,7 +933,7 @@ function leftPanel(s) {
   if (s.tab === 'buildings') {
     const e = energy(s);
     rows += `<div class="energybar ${e.produced < e.used ? 'low' : ''}">${ICON.energy} Énergie <b>${fmt(e.produced)} / ${fmt(e.used)}</b>${e.produced < e.used ? ' · la production baisse' : ''}</div>`;
-    const boost = 1 + tune.meta_prod * R('eco_prod') + art('prod');
+    const boost = 1 + tune.meta_prod * R('eco_prod') + tune.ks_prod * R('ks_eco_war') + art('prod');
     for (const k in B) {
       const b = B[k], l = s.buildings[k], c = buildingCost(k, l);
       const val = lv => b.produces === 'energy' ? lvlProd(b.perLevel, lv) : lvlProd(b.perLevel, lv) * tune.hours_per_wave * boost;
@@ -903,12 +959,14 @@ function leftPanel(s) {
     const u = flagUnit(s);
     rows += `<div class="flagcard"><div class="fh">${flagIcon()}<div><b>Vaisseau amiral</b><small>Il combat avec tes défenses. Abattu, il revient réparé à la vague suivante. Les mines ne le touchent pas.</small></div></div>
       <div class="stats"><span>${ICON.attack}${fmt(u.attack)}</span><span>${ICON.shield}${fmt(u.shield)}</span><span>${ICON.hull}${fmt(u.hull)}</span></div>
-      <div class="desc"><b style="color:#9ff0ff">Lance</b> (touche 4), une fois par bataille${art('lance') ? ` (${1 + art('lance')} fois)` : ''} : un tir de ${fmt(lanceDamage(s))} qui traverse les boucliers, sur la cible du Tir concentré.</div></div>`;
+      <div class="stats"><span>${ICON.star}Vétérance ${s.flag.vet || 0} · ×${flagVet(s).toFixed(2)}</span><span>${ICON.attack}${flagShots(s)} tirs / round</span></div>
+      <div class="desc"><b style="color:#9ff0ff">Commandement</b> : tant qu’il vole, toutes tes défenses ont <b style="color:var(--good)">+${Math.round(flagAura(s) * 100)} %</b> d’attaque. Chaque bataille dont il sort vivant lui donne +${Math.round(tune.flag_vet * 100)} % de stats pour la partie.</div>
+      <div class="desc"><b style="color:#9ff0ff">Lance</b> (touche 4), ${lancesPerBattle() > 1 ? `${lancesPerBattle()} fois` : 'une fois'} par bataille : ${fmt(lanceDamage(s))} + <b style="color:var(--good)">${Math.round(lancePct(s) * 100)} %</b> de la structure de la cible, à travers les boucliers, sur la cible du Tir concentré.</div></div>`;
     const g = tune.flag_growth, num = v => v.toFixed(2).replace(/\.?0+$/, '');
     for (const k in FLAG_UPS) {
       const l = s.flag[k], c = flagCost(k, l), [name, what] = FLAG_UPS[k];
-      const eff = k === 'lance' ? `Lance ×${num(lanceMult(s))} → <b style="color:var(--good)">×${num(lanceMult(s) + tune.lance_per_level)}</b> l’attaque` : `${what}${num(Math.pow(g, l))} → <b style="color:var(--good)">×${num(Math.pow(g, l + 1))}</b>`;
-      rows += `<div class="row"><div class="icon">${(k === 'weapons' ? ICON.attack : k === 'hull' ? ICON.hull : ICON.over).replace('class="ic"', '')}</div><div><div class="name">${name}<i>niv. ${l}</i></div>
+      const eff = k === 'bridge' ? `Aura +${Math.round(flagAura(s) * 100)} % → <b style="color:var(--good)">+${Math.round((flagAura(s) + tune.flag_aura_per_level * (R('ks_adm_mother') ? 2 : 1)) * 100)} %</b>` : k === 'lance' ? `Lance ×${num(lanceMult(s))} + ${Math.round(lancePct(s) * 100)} % → <b style="color:var(--good)">×${num(lanceMult(s) + tune.lance_per_level)} + ${Math.round((lancePct(s) + tune.lance_pct_per_level) * 100)} %</b>` : k === 'weapons' ? `${what}${num(Math.pow(g, l))} → <b style="color:var(--good)">×${num(Math.pow(g, l + 1))}</b>${(l + 1) % 2 === 0 ? ' · +1 tir' : ''}` : `${what}${num(Math.pow(g, l))} → <b style="color:var(--good)">×${num(Math.pow(g, l + 1))}</b>`;
+      rows += `<div class="row"><div class="icon">${(k === 'weapons' ? ICON.attack : k === 'hull' ? ICON.hull : k === 'bridge' ? ICON.focus : ICON.over).replace('class="ic"', '')}</div><div><div class="name">${name}<i>niv. ${l}</i></div>
         <div class="stats"><span>${eff}</span></div><div class="cost">${costHtml(c, s.res)}</div></div>
         <div class="btns"><button data-act="flagUp" data-arg="${k}" ${!build || !afford(s.res, c) ? 'disabled' : ''}>Améliorer</button></div></div>`;
     }
@@ -944,7 +1002,7 @@ function rightPanel(s) {
     const sim = s.sim, bonus = earlyBonus(s);
     const winC = sim.win > 0.75 ? 'var(--good)' : sim.win > 0.4 ? 'var(--energy)' : 'var(--bad)';
     return `<div id="right" class="panel pe"><h3>FLOTTE EN APPROCHE</h3>
-      ${s.respite ? `<div class="respite">RÉPIT · flotte ${Math.round(tune.respite * 100)} % plus faible après ta défaite</div>` : ''}${bossCard(fleetBoss(s.fleet))}
+      ${adaptTarget(s) ? `<div class="respite" style="color:#ff8a7a;border-color:#ff645766;background:#2a0d0d80">ADAPTATION · tir rapide ×${tune.adapt_rapid} contre tes ${plural(DEF[adaptTarget(s)].name)}</div>` : ''}${s.respite ? `<div class="respite">RÉPIT · flotte ${Math.round(tune.respite * 100)} % plus faible après ta défaite</div>` : ''}${bossCard(fleetBoss(s.fleet))}
       <div class="ring"><svg viewBox="0 0 104 104"><circle cx="52" cy="52" r="46" fill="none" stroke="#ffffff14" stroke-width="7"/><circle id="cdring" cx="52" cy="52" r="46" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="0"/></svg>
       <div class="num"><div><b id="cdnum">${Math.ceil(s.countdown)}</b><small>SECONDES</small></div></div></div>
       <div class="bonus" id="bonus">BONUS SI LANCÉE MAINTENANT · +${Math.round(earlyShare(s) * 100)} %<br>${costHtml(bonus)}</div>
@@ -952,7 +1010,7 @@ function rightPanel(s) {
       <div class="sim"><div style="display:flex;justify-content:space-between;align-items:baseline"><small>SIMULATEUR · ${sim.runs} combats</small><span class="pct" style="color:${winC}">${Math.round(sim.win * 100)} %</span></div>
         <div class="bar"><i style="width:${sim.win * 100}%;background:var(--good)"></i><i style="width:${sim.draw * 100}%;background:var(--energy)"></i><i style="width:${sim.loss * 100}%;background:var(--bad)"></i></div>
         <small>victoire ${Math.round(sim.win * 100)} % · égalité ${Math.round(sim.draw * 100)} % · défaite ${Math.round(sim.loss * 100)} %<br>pertes prévues, après reconstruction : ${fmt(sim.lost)} en ressources · sans ordres</small></div>
-      <div class="bonus" style="color:var(--cmd);margin-bottom:10px">Tenir cette vague : +${pointsFor(s.wave)} point${pointsFor(s.wave) > 1 ? 's' : ''} de spécialisation</div>
+      ${pointsFor(s.wave) ? `<div class="bonus" style="color:var(--cmd);margin-bottom:10px">Tenir cette vague : +${pointsFor(s.wave)} point${pointsFor(s.wave) > 1 ? 's' : ''} de spécialisation</div>` : ''}
       <button class="primary" data-act="launch">Lancer la vague</button></div>`;
   }
   if (s.phase === 'battle') {
@@ -990,7 +1048,7 @@ function reportModal(s) {
     ${r.boss ? `<div class="bossline ${r.bossDown ? 'down' : ''}">${shipIcon(r.boss)}<b>${EN(r.boss).name}</b> · ${r.bossDown ? 'abattue' : (tune.boss_alive_loses ? 'toujours en vol : la planète est bombardée' : 'toujours en vol')}</div>` : ''}<div class="cols"><div><h4>TES DÉFENSES</h4>${lostRows}</div><div><h4>FLOTTE ENNEMIE</h4>${enemyRows}</div></div>
     <div class="gain">${r.pts ? `<span class="pts">${ICON.tree} +${r.pts} point${r.pts > 1 ? 's' : ''} de spécialisation</span>` : ''}<span style="color:var(--good)">Débris récupérés</span><span>${ICON.metal}${fmt(r.debris.metal)}</span><span>${ICON.crystal}${fmt(r.debris.crystal)}</span>
     ${pl ? `<span style="color:var(--bad)">Pillé</span><span>${ICON.metal}−${fmt(r.plunder.metal)}</span><span>${ICON.crystal}−${fmt(r.plunder.crystal)}</span><span>${ICON.hydrogen}−${fmt(r.plunder.hydrogen)}</span>` : ''}</div>
-    ${r.second ? `<div class="respite" style="color:var(--asc);border-color:#ffd86b88">SECOND SOUFFLE · la planète tient avec une dernière vie</div>` : ''}${r.victory ? `<div class="respite" style="color:var(--asc);border-color:#ffd86b88">LE DÉVOREUR EST TOMBÉ · la partie est gagnée</div>` : ''}${r.winner === 'attacker' && s.lives > 0 && tune.respite > 0 ? `<div class="respite">Répit : la prochaine flotte sera ${Math.round(tune.respite * 100)} % plus faible</div>` : ''}${r.flagDown ? '<div class="line" style="justify-content:center;color:var(--muted);margin-bottom:6px">Ton vaisseau amiral a été abattu : il revient réparé à la prochaine vague</div>' : ''}${lootHtml(s)}<div class="actions"><button class="primary" data-act="continue">${r.victory ? 'Victoire !' : s.lives <= 0 ? 'Voir la fin' : s.loot ? 'Continuer sans butin' : 'Continuer (Entrée)'}</button></div></div></div>`;
+    ${r.second ? `<div class="respite" style="color:var(--asc);border-color:#ffd86b88">SECOND SOUFFLE · la planète tient avec une dernière vie</div>` : ''}${r.victory ? `<div class="respite" style="color:var(--asc);border-color:#ffd86b88">LE DÉVOREUR EST TOMBÉ · la partie est gagnée</div>` : ''}${r.winner === 'attacker' && s.lives > 0 && tune.respite > 0 ? `<div class="respite">Répit : la prochaine flotte sera ${Math.round(tune.respite * 100)} % plus faible</div>` : ''}${r.flagDown ? '<div class="line" style="justify-content:center;color:var(--muted);margin-bottom:6px">Ton vaisseau amiral a été abattu : il revient réparé à la prochaine vague, sans gagner de vétérance</div>' : `<div class="line" style="justify-content:center;color:#9ff0ff;margin-bottom:6px">${ICON.flag} Vaisseau amiral : vétérance ${r.flagVet} · stats ×${flagVet(s).toFixed(2)}</div>`}${lootHtml(s)}<div class="actions"><button class="primary" data-act="continue">${r.victory ? 'Victoire !' : s.lives <= 0 ? 'Voir la fin' : s.loot ? 'Continuer sans butin' : 'Continuer (Entrée)'}</button></div></div></div>`;
 }
 function lootHtml(s) {
   if (!s.loot) return '';
@@ -1004,25 +1062,79 @@ function lootHtml(s) {
     <div class="sub" style="margin:6px 0 0">Gardé jusqu’à la fin de la partie · ${s.artifacts.length}/${tune.artifact_slots} emplacements · Continuer sans choisir le perd</div></div>`;
 }
 function treeModal() {
-  const spent = Object.keys(meta.ranks).filter(id => purse(NODE[id]) === 'points').reduce((a, id) => a + meta.ranks[id] * NODE[id].cost, 0);
+  const spent = Object.keys(meta.ranks).filter(id => NODE[id]).reduce((a, id) => a + nodeSpent(NODE[id], meta.ranks[id]), 0);
   const cols = BRANCHES.map(([b, name, col, ic]) => {
     let tiers = '';
-    for (let t = 1; t <= 4; t++) {
+    for (let t = 1; t <= 5; t++) {
+      if (!TREE.some(n => n.branch === b && n.tier === t)) continue;
+      if (t === 5) tiers += `<div class="kshead">Clé de voûte · une seule</div>`;
       const nodes = TREE.filter(n => n.branch === b && n.tier === t).map(n => {
-        const r = R(n.id), open = nodeOpen(n), maxed = r >= n.max, can = open && !maxed && meta[purse(n)] >= n.cost, unit = n.currency === 'shards' ? 'éclat' : 'point';
+        const r = R(n.id), open = nodeOpen(n), maxed = r >= n.max, nc = rankCost(n, r), can = open && !maxed && meta[purse(n)] >= nc, unit = n.currency === 'shards' ? 'éclat' : 'point';
         const pips = Array.from({ length: n.max }, (_, i) => `<i class="${i < r ? 'on' : ''}"></i>`).join('');
-        return `<button class="node ${r ? 'has' : ''} ${maxed ? 'max' : ''} ${open ? '' : 'lock'}" data-act="buyNode" data-arg="${n.id}" ${can ? '' : 'disabled'} title="${open ? '' : 'Prends d’abord un nœud du palier au-dessus'}">
+        return `<button class="node ${r ? 'has' : ''} ${maxed ? 'max' : ''} ${open ? '' : 'lock'}" data-act="buyNode" data-arg="${n.id}" ${can ? '' : 'disabled'} title="${open ? '' : n.branch === 'asc' ? 'Prends d’abord un nœud du palier au-dessus' : keyTaken(n) ? 'Tu as déjà pris l’autre clé de voûte' : `Dépense ${tierGate(n.tier)} points dans cette branche`}">
           ${ICON[n.icon].replace('class="ic"', '')}<span class="nm">${n.name}</span><span class="rk">rang ${r}/${n.max}<span class="pips">${pips}</span></span>
-          <span class="ef">${nodeText(n)}</span><span class="co">${maxed ? 'Maximum' : open ? `${n.cost} ${unit}${n.cost > 1 ? 's' : ''}` : n.branch === 'asc' && !meta.wins ? 'Gagne une partie' : 'Verrouillé'}</span></button>`;
+          <span class="ef">${nodeText(n)}</span><span class="co">${maxed ? 'Maximum' : open ? `${nc} ${unit}${nc > 1 ? 's' : ''}` : n.branch === 'asc' && !meta.wins ? 'Gagne une partie' : n.branch === 'asc' ? 'Verrouillé' : keyTaken(n) ? 'Autre clé prise' : `${branchSpent(n.branch)}/${tierGate(n.tier)} points dans la branche`}</span></button>`;
       }).join('');
       tiers += `<div class="tier">${nodes}</div>`;
     }
     return `<div class="branch" style="--bc:${col}"><h3 style="color:${col}">${ICON[ic]}${name}</h3>${tiers}</div>`;
   }).join('');
-  return `<div class="modal pe"><div class="panel treebox"><div class="treehead">${ICON.tree.replace('class="ic"', 'style="width:40px;height:40px"')}<div><h2>Arbre de spécialisation</h2><div class="sub" style="margin:0">Gagne des points en tenant des vagues. Ils restent après une défaite et rendent les parties suivantes plus fortes.</div></div>
+  return `<div class="modal pe"><div class="panel treebox"><div class="treehead">${ICON.tree.replace('class="ic"', 'style="width:40px;height:40px"')}<div><h2>Arbre de spécialisation</h2><div class="sub" style="margin:0">${tune.meta_pts_waves > 1 ? `1 point toutes les ${tune.meta_pts_waves} vagues tenues` : '1 point par vague tenue'}, ${tune.meta_pts_boss} par boss abattu, ${tune.meta_pts_win} pour le Dévoreur. Chaque rang coûte plus que le précédent ; un palier s’ouvre quand tu as assez dépensé dans sa branche.${meta.migrated ? ' L’arbre a changé : tes anciens points t’ont été rendus à la nouvelle échelle.' : ''}</div></div>
     ${meta.wins ? `<div class="pts" style="margin-left:auto"><b style="color:var(--asc)">${fmt(meta.shards)}</b><small>éclats d\u2019Ascension</small></div>` : ''}<div class="pts"${meta.wins ? ' style="margin-left:18px"' : ''}><b>${fmt(meta.points)}</b><small>points disponibles · ${fmt(meta.earned)} gagnés en ${meta.runs} partie${meta.runs > 1 ? 's' : ''}</small></div></div>
     <div class="treecols">${cols}</div>
     <div class="actions"><button class="primary" data-act="closeTree">Retour (Échap)</button>${spent ? `<button data-act="respec" style="min-width:0">Tout réinitialiser (rend points et éclats)</button>` : ''}</div></div></div>`;
+}
+// ---- Statistiques: every number the game uses, and where it comes from ----
+function statsModal(s) {
+  const pc = v => `${Math.round(v * 1000) / 10} %`, sg = v => (v >= 0 ? '+' : '−') + pc(Math.abs(v)), x = v => '×' + (Math.round(v * 100) / 100).toString().replace('.', ',');
+  const src = list => { const l = list.filter(([, v]) => v); return l.length ? `<div class="src">${l.map(([n, v]) => `<span>${n} <b>${typeof v === 'number' ? sg(v) : v}</b></span>`).join('')}</div>` : ''; };
+  const row = (label, val, sources = [], hint = '') => `<div class="srow"><div class="sl">${label}${hint ? `<small>${hint}</small>` : ''}</div><div class="sv${String(val).replace(/<[^>]*>/g, "").length > 18 ? " long" : ""}">${val}</div>${src(sources)}</div>`;
+  const card = (title, col, ic, body) => `<div class="scard" style="--bc:${col}"><h3 style="color:${col}">${ICON[ic]}${title}</h3>${body}</div>`;
+  const b = tune.research_bonus, d = doctrine(), m = defMult(s), aura = flagAura(s), p = perWave(s), e = energy(s);
+  const ratio = e.used === 0 ? 1 : Math.min(1, e.produced / e.used), boost = tune.meta_prod * R('eco_prod') + tune.ks_prod * R('ks_eco_war') + art('prod');
+  const artName = key => ART.filter(a => s.artifacts.includes(a.id) && a.key === key).map(a => a.name).join(', ') || 'Artefact';
+  const defs = card('Défenses', 'var(--def)', 'shield',
+    row('Attaque', x(m.attack), [['Armement', s.research.weapons * b], ['Artillerie', tune.meta_attack * R('def_attack')], ['Batteries lourdes', tune.ks_guns * R('ks_def_guns')], ['Doctrine ultime', d], [artName('atk'), art('atk')]], `+${Math.round(aura * 100)} % de plus en bataille tant que l’amiral vole`) +
+    row('Boucliers', x(m.shield), [['Boucliers', s.research.shielding * b], ['Boucliers hérités', tune.meta_shield * R('def_shield')], ['Muraille', tune.ks_wall * R('ks_def_wall')], ['Doctrine ultime', d], [artName('shield'), art('shield')]]) +
+    row('Structure', x(m.hull), [['Blindage', s.research.armour * b], ['Blindage hérité', tune.meta_hull * R('def_hull')], ['Muraille', tune.ks_wall * R('ks_def_wall')], ['Doctrine ultime', d], [artName('hull'), art('hull')]]) +
+    row('Reconstruction', pc(rebuildChance(s)), [['Base', tune.rebuild_chance], ['Robotique', tune.robotics_rebuild * s.research.robotics], ['Ingénierie orbitale', tune.meta_rebuild * R('def_rebuild')], [artName('rebuild'), art('rebuild')], ['Ascension 9', asc(9) ? -tune.asc_rebuild : 0]], 'défenses perdues qui reviennent après la bataille · 95 % au plus') +
+    row('Dégâts contre les boss', x(bossHunt()), [['Chasseur de boss', tune.asc_boss_hunt * R('asc_hunter')], [artName('bosshunt'), art('bosshunt')]]));
+  const eco = card('Économie', 'var(--eco)', 'metal',
+    row('Production par vague', `${fmt(p.metal)} · ${fmt(p.crystal)} · ${fmt(p.hydrogen)}`, [], 'métal · cristal · hydrogène') +
+    row('Bonus de production', sg(boost), [['Prospection', tune.meta_prod * R('eco_prod')], ['Économie de guerre', tune.ks_prod * R('ks_eco_war')], [artName('prod'), art('prod')]]) +
+    row('Énergie', pc(ratio), [], ratio < 1 ? 'production réduite : manque d’énergie' : 'les mines tournent à plein') +
+    row('Bonus d’appel anticipé', `jusqu’à ${pc(tune.early_bonus * (1 + tune.meta_scout * R('eco_scout')))}`, [['Base', tune.early_bonus], ['Éclaireurs', tune.early_bonus * tune.meta_scout * R('eco_scout')]], 'd’une vague de production, si tu lances tout de suite') +
+    row('Débris récupérés', pc(debrisShare()), [['Base', tune.debris_share], ['Recyclage', tune.meta_debris * R('eco_debris')], ['Ferrailleurs', tune.ks_debris * R('ks_eco_scrap')], [artName('debris'), art('debris')], ['Ascension 6', asc(6) ? `×${1 - tune.asc_debris}` : 0]], 'du métal et du cristal des vaisseaux abattus') +
+    row('Pillage', `${pc(tune.plunder_share * Math.max(0, 1 - tune.meta_vault * R('eco_vault')))} · ${pc(tune.draw_plunder_share * Math.max(0, 1 - tune.meta_vault * R('eco_vault')))}`, [['Coffres blindés', R('eco_vault') ? `−${pc(tune.meta_vault * R('eco_vault'))} du pillage` : 0]], 'de tes ressources sur une défaite · sur une égalité') +
+    row('Répit', `−${pc(tune.respite)}`, [], 'la flotte qui suit une défaite'));
+  const oc = k => fmt(orderCost(ORDER_BASE()[k], s.wave));
+  const cmd = card('Bataille et ordres', 'var(--cmd)', 'focus',
+    row('Rounds par bataille', totalRounds(), [['Base', `${tune.rounds}`], ['Commandant vétéran', R('cmd_round') ? '+1' : 0], [artName('round'), art('round') ? `+${art('round')}` : 0]]) +
+    row('Vies', totalLives(), [['Base', `${tune.lives}`], ['Bastion', R('def_life') ? `+${R('def_life')}` : 0], [artName('life'), art('life') ? `+${art('life')}` : 0], ['Ascension 2', asc(2) ? '−1' : 0]]) +
+    row('Coût des ordres', `${oc('over')} · ${oc('shield')} · ${oc('focus')}`, [['Logistique', R('cmd_cost') ? -tune.meta_cost * R('cmd_cost') : 0], [artName('ordercost'), art('ordercost') ? -art('ordercost') : 0], ['Ascension 3', asc(3) ? tune.asc_order_cost : 0]], `hydrogène, à la vague ${s.wave} : Surcharge · Bouclier · Tir concentré`) +
+    row('Surcharge', x(overMult()), [['Surcharge améliorée', R('cmd_over') ? `+${tune.meta_over * R('cmd_over')}` : 0]], 'attaque de tes défenses ce round') +
+    row('Bouclier d’urgence', x(shieldMult()), [['Bouclier renforcé', R('cmd_shield') ? `+${tune.meta_shieldorder * R('cmd_shield')}` : 0]], 'boucliers de tes défenses ce round') +
+    row('Tir concentré', R('cmd_focus') ? `attaque ${sg(tune.meta_focus * R('cmd_focus'))}` : 'toutes sur une cible', [['Tir de précision', tune.meta_focus * R('cmd_focus')]]) +
+    row('Ordres gratuits', [R('cmd_free') || art('free') ? 'le premier' : '', R('ks_cmd_supply') ? `les ${tune.ks_supply_rounds} premiers rounds` : ''].filter(Boolean).join(' · ') || 'aucun'));
+  const u = flagUnit(s);
+  const flag = card('Vaisseau amiral', 'var(--adm)', 'flag',
+    row('Attaque · boucliers · structure', `${fmt(u.attack)} · ${fmt(u.shield)} · ${fmt(u.hull)}`, [['Équipage d’élite', tune.meta_flag * R('adm_crew')], [artName('flag'), art('flag')], ['Vétérance', tune.flag_vet * (s.flag.vet || 0)]], `${flagShots(s)} tirs par round`) +
+    row('Commandement', `+${Math.round(aura * 100)} %`, [['Base', tune.flag_aura], ['Pont de commandement', tune.flag_aura_per_level * s.flag.bridge], ['Rayonnement', tune.meta_aura * R('adm_aura')], ['Vaisseau-mère', R('ks_adm_mother') ? '×2' : 0]], 'attaque de toutes tes défenses tant qu’il vole') +
+    row('Vétérance', s.flag.vet || 0, [], `+${Math.round(tune.flag_vet * 100)} % de stats par bataille dont il sort vivant`) +
+    row('Lance', `${fmt(lanceDamage(s))} + ${pc(lancePct(s))}`, [['Lance affûtée', tune.meta_lance_pct * R('adm_lance')], ['Lances par bataille', `${lancesPerBattle()}`]], 'de la structure de la cible, à travers les boucliers'));
+  const ad = adaptTarget(s), nb = (() => { for (let w = s.wave; w <= finalWave(); w++) if (isBoss(w)) return w; return 0; })();
+  const foe = card(`Ennemis · vague ${s.wave}`, 'var(--bad)', 'attack',
+    row('Stats des vaisseaux', x(enemyMult(s.wave)), [['Vagues', Math.floor((s.wave - 1) / 3) * tune.enemy_stat_step], ['Ascension 1', asc(1) ? tune.asc_enemy : 0], ['Ascension 8', asc(8) ? tune.asc_enemy : 0]], `+${pc(tune.enemy_stat_step)} toutes les 3 vagues`) +
+    row('Valeur de la flotte', fmt(Math.round(waveValue(s.wave) * (s.respite ? 1 - tune.respite : 1))), [['Répit', s.respite ? -tune.respite : 0]], 'en ressources') +
+    row('Adaptation', ad ? `tir rapide ×${tune.adapt_rapid} contre tes ${plural(DEF[ad].name)}` : s.wave < tune.adapt_from ? `à partir de la vague ${tune.adapt_from}` : 'aucune', [], 'vise ta défense qui vaut le plus') +
+    row('Prochain boss', nb ? `${BOSS[bossFor(nb)].name} · vague ${nb}` : '—', nb ? [['Stats', x(bossScale(nb, bossFor(nb)) * enemyMult(nb))]] : []));
+  const prog = card('Progression', 'var(--asc)', 'tree',
+    row('Points de spécialisation', fmt(meta.points), [['Cette partie', s.pointsRun ? `+${s.pointsRun}` : 0]], `1 toutes les ${tune.meta_pts_waves} vagues tenues · ${tune.meta_pts_boss} par boss abattu · ${tune.meta_pts_win} pour le Dévoreur`) +
+    row('Multiplicateur de points', x(ptsMult()), [['Ascension', runAsc ? `niveau ${runAsc}` : 0]]) +
+    row('Vagues tenues', s.wavesHeld, [], `meilleur score ${fmt(Math.max(load(BEST_KEY) || 0, s.wavesHeld))}`));
+  return `<div class="modal pe"><div class="panel statsbox"><div class="treehead">${ICON.stats.replace('class="ic"', 'style="width:40px;height:40px"')}<div><h2>Statistiques</h2><div class="sub" style="margin:0">Tous les chiffres de ta partie et d’où ils viennent : recherche, arbre, artefacts, Ascension. Le jeu attend pendant que tu lis.</div></div></div>
+    <div class="scols">${defs}${eco}${cmd}${flag}${foe}${prog}</div>
+    <div class="actions"><button class="primary" data-act="closeStats">Retour (I)</button></div></div></div>`;
 }
 function renderHud() {
   hudDirty = false;
@@ -1047,6 +1159,7 @@ function renderHud() {
     if (s.phase === 'battle' && s.battle.step === 'arrive') html += `<div class="banner panel"><b style="color:${isBoss(s.wave) ? 'var(--bad)' : 'var(--text)'}">${isBoss(s.wave) ? 'Vague de boss' : `Vague ${s.wave}`}</b><small>La flotte ennemie sort du saut</small></div>`;
     if (s.phase === 'build' && s.tutorial === 0 && s.wave === 1) html += '<div class="hint">Ajoute une mine ou des défenses à gauche, puis lance la vague à droite (Entrée)</div>';
     if (s.phase === 'battle' && s.battle.step === 'order' && s.tutorial === 2) html += '<div class="hint">Choisis un ordre (1, 2, 3) : il coûte de l’hydrogène et change ce round</div>';
+    if (scene === 'stats') html += statsModal(s);
     if (scene === 'pause') html += '<div class="modal pe"><div class="panel pausebox" style="text-align:center;width:360px"><h2>Pause</h2><p class="sub">Espace ou P pour reprendre</p><div class="actions"><button class="primary" data-act="pause">Reprendre</button></div></div></div>';
     if (scene === 'won') {
       const r = s.report;
@@ -1644,6 +1757,13 @@ const scenes = {
     draw() {},
   },
   play: { update(dt) { updatePlay(dt); }, draw() {} },
+  stats: { // the game waits while it is open
+    update() {
+      for (const a of actions.splice(0)) { if (a.act === 'stats' || a.act === 'closeStats') { scene = 'play'; hudDirty = true; } if (a.act === 'mute') setMuted(!muted); }
+      if (pressed('KeyI') || pressed('Escape') || pressed('Enter')) { scene = 'play'; hudDirty = true; }
+    },
+    draw() {},
+  },
   pause: {
     update() {
       for (const a of actions.splice(0)) { if (a.act === 'pause') { scene = 'play'; hudDirty = true; } if (a.act === 'mute') setMuted(!muted); }

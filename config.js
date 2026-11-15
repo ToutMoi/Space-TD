@@ -29,7 +29,7 @@ window.CONFIG = {
   rebuild_chance: { value: 0.7, min: 0, max: 1, step: 0.05 },        // lost defences that come back
   robotics_rebuild: { value: 0.05, min: 0, max: 0.2, step: 0.01 },   // + a robotics level
   plunder_share: { value: 0.3, min: 0, max: 1, step: 0.05 },         // resources taken on a defeat (Rempart: 0.5)
-  respite: { value: 0.25, min: 0, max: 0.9, step: 0.05 },             // after a defeat, the next fleet is this much weaker
+  respite: { value: 0.2, min: 0, max: 0.9, step: 0.05 },             // after a defeat, the next fleet is this much weaker
   draw_plunder_share: { value: 0.2, min: 0, max: 1, step: 0.05 },    // on a draw (both sides left after the last round)
   research_bonus: { value: 0.1, min: 0, max: 0.5, step: 0.01 },      // weapons / shielding / armour +10% a level
   explode_threshold: { value: 0.7, min: 0, max: 1, step: 0.05 },     // a hull under this share may explode
@@ -37,16 +37,18 @@ window.CONFIG = {
   // ---- Waves (Rempart) ----
   wave_value: { value: 12000, min: 1000, max: 100000, step: 1000 },  // resource value of wave 1
   wave_growth_early: { value: 1.35, min: 1, max: 2, step: 0.01 },    // x per wave until wave_growth_switch
-  wave_growth_late: { value: 1.15, min: 1, max: 2, step: 0.01 },      // x per wave after the switch (Rempart: 1.25)
+  wave_growth_late: { value: 1.17, min: 1, max: 2, step: 0.01 },      // x per wave after the switch (Rempart: 1.25)
   wave_growth_switch: { value: 8, min: 1, max: 30, step: 1 },
   boss_every: { value: 5, min: 2, max: 20, step: 1 },
   boss_value_mult: { value: 1.0, min: 0.2, max: 4, step: 0.1 },     // escort fleet of a boss wave, x a normal wave's value
   boss_top_share: { value: 0, min: 0, max: 1, step: 0.01 },          // Rempart's old boss rule (a third in its top ship); 0 now that bosses are unique
-  enemy_stat_step: { value: 0.05, min: 0, max: 0.5, step: 0.01 },    // enemy stats + this every 3 waves (Rempart: 0.1)
+  enemy_stat_step: { value: 0.06, min: 0, max: 0.5, step: 0.01 },    // enemy stats + this every 3 waves (Rempart: 0.1)
 
   // ---- Unique bosses (new): one every boss_every waves, in turn ----
   boss_scale_exp: { value: 0.75, min: 0.3, max: 1.5, step: 0.05 },   // boss stats x (wave value / wave-5 value)^this (was 0.85: the wave-25 boss was near unbeatable)
-  final_boss_scale: { value: 5, min: 1, max: 30, step: 0.5 },        // the Dévoreur's own stat multiplier on the final wave (it was x29 with the shared curve: unkillable)
+  final_boss_scale: { value: 6, min: 1, max: 30, step: 0.5 },        // the Dévoreur's own stat multiplier on the final wave (it was x29 with the shared curve: unkillable)
+  adapt_from: { value: 10, min: 1, max: 100, step: 1 },              // Adaptation: from this wave the fleet gets rapid fire against your main defence
+  adapt_rapid: { value: 3, min: 1, max: 20, step: 1 },               // Adaptation: the rapid fire it gets (1 = off)
   boss_alive_loses: { value: 1, min: 0, max: 1, step: 1 },           // 1: a boss still flying after the last round costs a life
   carrier_spawn: { value: 3, min: 0, max: 20, step: 1 },             // Ruche: ships launched each round
   carrier_spawn_growth: { value: 1, min: 0, max: 10, step: 1 },      // + this per boss cycle
@@ -100,9 +102,24 @@ window.CONFIG = {
   flash_strength: { value: 0.55, min: 0, max: 1.5, step: 0.05 },     // size of explosion and impact flashes (was 1)
 
   // ---- Specialisation tree (new): points earned every run, kept between runs ----
-  meta_pts_wave: { value: 1, min: 0, max: 10, step: 1 },             // points per wave held
-  meta_pts_every: { value: 5, min: 1, max: 20, step: 1 },            // +1 point per wave held for every this many waves reached
-  meta_pts_boss: { value: 3, min: 0, max: 20, step: 1 },             // extra points for a boss wave held
+  meta_pts_waves: { value: 2, min: 1, max: 10, step: 1 },            // 1 point every this many waves held (was 1+ a point every wave: the tree filled in 2 runs)
+  meta_pts_boss: { value: 3, min: 0, max: 20, step: 1 },             // points for a boss downed
+  meta_pts_win: { value: 7, min: 0, max: 50, step: 1 },              // points for downing the Dévoreur
+  meta_refund_div: { value: 3.2, min: 1, max: 10, step: 0.1 },       // old saves: points earned / this, given back once
+  tree_gate_2: { value: 3, min: 0, max: 100, step: 1 },              // points spent in a branch to open its tier 2
+  tree_gate_3: { value: 10, min: 0, max: 100, step: 1 },
+  tree_gate_4: { value: 20, min: 0, max: 100, step: 1 },
+  tree_gate_5: { value: 35, min: 0, max: 200, step: 1 },             // the keystones
+  ks_prod: { value: 0.25, min: 0, max: 1, step: 0.05 },              // Économie de guerre
+  ks_debris: { value: 0.1, min: 0, max: 0.5, step: 0.01 },           // Ferrailleurs
+  ks_wall: { value: 0.2, min: 0, max: 1, step: 0.05 },               // Muraille
+  ks_guns: { value: 0.2, min: 0, max: 1, step: 0.05 },               // Batteries lourdes
+  ks_supply_rounds: { value: 2, min: 0, max: 6, step: 1 },           // Intendance: free orders in these first rounds
+  meta_flag: { value: 0.15, min: 0, max: 1, step: 0.05 },            // Équipage: flagship stats + a rank
+  meta_aura: { value: 0.03, min: 0, max: 0.2, step: 0.01 },          // Rayonnement: aura + a rank
+  meta_vet_start: { value: 3, min: 0, max: 20, step: 1 },            // Instruction: veterancy at the start, a rank
+  meta_lance_pct: { value: 0.03, min: 0, max: 0.2, step: 0.01 },     // Lance affûtée: + share of the target's structure, a rank
+  meta_salvo: { value: 1, min: 0, max: 5, step: 1 },                 // Salves: shots a round, a rank
   meta_prod: { value: 0.05, min: 0, max: 0.5, step: 0.01 },          // Prospection: production + a rank
   meta_start_metal: { value: 1500, min: 0, max: 20000, step: 100 },  // Capital de départ, a rank
   meta_start_crystal: { value: 750, min: 0, max: 20000, step: 50 },
@@ -122,14 +139,20 @@ window.CONFIG = {
   meta_focus: { value: 0.1, min: 0, max: 0.5, step: 0.05 },          // Tir de précision: focus also adds attack
 
   // ---- Flagship (new): your own ship, fights beside the defences, comes back repaired ----
-  flag_attack: { value: 150, min: 10, max: 5000, step: 10 },
-  flag_shield: { value: 150, min: 0, max: 5000, step: 10 },
-  flag_hull: { value: 2500, min: 100, max: 50000, step: 100 },
+  flag_attack: { value: 300, min: 10, max: 5000, step: 10 },
+  flag_shield: { value: 200, min: 0, max: 5000, step: 10 },
+  flag_hull: { value: 4000, min: 100, max: 50000, step: 100 },
   flag_growth: { value: 1.3, min: 1.05, max: 2, step: 0.05 },        // stats x this per level of Armement / Coque
   flag_cost_metal: { value: 3000, min: 0, max: 100000, step: 100 },  // first level of each upgrade
   flag_cost_crystal: { value: 2000, min: 0, max: 100000, step: 100 },
   flag_cost_hydrogen: { value: 500, min: 0, max: 50000, step: 50 },
   flag_cost_factor: { value: 1.6, min: 1.1, max: 3, step: 0.05 },    // each level costs x this
+  flag_shots: { value: 3, min: 1, max: 10, step: 1 },                // shots a round, + 1 every 2 Armement levels
+  flag_vet: { value: 0.08, min: 0, max: 0.5, step: 0.01 },           // Vétérance: stats + this per battle it survives in the run
+  flag_aura: { value: 0.1, min: 0, max: 1, step: 0.01 },             // Commandement: every defence's attack + this while it flies
+  flag_aura_per_level: { value: 0.05, min: 0, max: 0.5, step: 0.01 }, // + this per Pont de commandement level
+  lance_pct: { value: 0.1, min: 0, max: 1, step: 0.01 },             // Lance: also takes this share of the target's full structure
+  lance_pct_per_level: { value: 0.02, min: 0, max: 0.2, step: 0.01 }, // + per Lance level
   lance_mult: { value: 4, min: 0, max: 50, step: 0.5 },              // Lance: one shot of attack x this, through shields, once a battle
   lance_per_level: { value: 1, min: 0, max: 10, step: 0.25 },        // + this to the multiplier per Lance level
 
@@ -187,25 +210,39 @@ window.DATA = {
   },
   // The specialisation tree: three branches, four tiers. A node opens when a node of the tier
   // above in its branch has a rank. cost = points for each rank. {v} in desc is the per-rank value.
+  // Each rank costs cost x its number (rank 3 = 3 x cost). A tier opens once the branch has
+  // tree_gate_<tier> points spent in it. Tier 5 holds two keystones: only one per branch.
   tree: [
     { id: 'eco_prod', branch: 'eco', tier: 1, name: 'Prospection', icon: 'metal', max: 5, cost: 1, desc: 'Production des mines +{p} par rang', key: 'meta_prod', pct: true },
     { id: 'eco_start', branch: 'eco', tier: 2, name: 'Capital de départ', icon: 'crystal', max: 3, cost: 2, desc: '+{start} au départ par rang' },
     { id: 'eco_hydro', branch: 'eco', tier: 2, name: 'Synthèse', icon: 'hydrogen', max: 3, cost: 2, desc: 'Hydrogène de base +{v}/h par rang', key: 'meta_hydro' },
     { id: 'eco_debris', branch: 'eco', tier: 3, name: 'Recyclage', icon: 'debris', max: 3, cost: 3, desc: 'Débris récupérés +{p} par rang', key: 'meta_debris', pct: true },
     { id: 'eco_scout', branch: 'eco', tier: 3, name: 'Éclaireurs', icon: 'scout', max: 3, cost: 3, desc: 'Bonus d’appel anticipé +{p} par rang', key: 'meta_scout', pct: true },
-    { id: 'eco_vault', branch: 'eco', tier: 4, name: 'Coffres blindés', icon: 'vault', max: 3, cost: 5, desc: 'Pillage réduit de {p} par rang', key: 'meta_vault', pct: true },
+    { id: 'eco_vault', branch: 'eco', tier: 4, name: 'Coffres blindés', icon: 'vault', max: 3, cost: 4, desc: 'Pillage réduit de {p} par rang', key: 'meta_vault', pct: true },
+    { id: 'ks_eco_war', branch: 'eco', tier: 5, group: 'eco', name: 'Économie de guerre', icon: 'metal', max: 1, cost: 8, desc: 'Production des mines +{p}', key: 'ks_prod', pct: true },
+    { id: 'ks_eco_scrap', branch: 'eco', tier: 5, group: 'eco', name: 'Ferrailleurs', icon: 'debris', max: 1, cost: 8, desc: 'Débris récupérés +{p}', key: 'ks_debris', pct: true },
     { id: 'def_start', branch: 'def', tier: 1, name: 'Fortifications', icon: 'tower', max: 3, cost: 1, desc: '+{v} lance-missiles au départ par rang', key: 'meta_start_rockets' },
     { id: 'def_hull', branch: 'def', tier: 2, name: 'Blindage hérité', icon: 'hull', max: 5, cost: 2, desc: 'Structure des défenses +{p} par rang', key: 'meta_hull', pct: true },
     { id: 'def_shield', branch: 'def', tier: 2, name: 'Boucliers hérités', icon: 'shield', max: 5, cost: 2, desc: 'Boucliers des défenses +{p} par rang', key: 'meta_shield', pct: true },
     { id: 'def_rebuild', branch: 'def', tier: 3, name: 'Ingénierie orbitale', icon: 'gear', max: 3, cost: 3, desc: 'Reconstruction +{p} par rang', key: 'meta_rebuild', pct: true },
     { id: 'def_attack', branch: 'def', tier: 3, name: 'Artillerie', icon: 'attack', max: 5, cost: 3, desc: 'Attaque des défenses +{p} par rang', key: 'meta_attack', pct: true },
     { id: 'def_life', branch: 'def', tier: 4, name: 'Bastion', icon: 'heart', max: 2, cost: 5, desc: '+1 vie par rang' },
+    { id: 'ks_def_wall', branch: 'def', tier: 5, group: 'def', name: 'Muraille', icon: 'shield', max: 1, cost: 8, desc: 'Boucliers et structure des défenses +{p}', key: 'ks_wall', pct: true },
+    { id: 'ks_def_guns', branch: 'def', tier: 5, group: 'def', name: 'Batteries lourdes', icon: 'attack', max: 1, cost: 8, desc: 'Attaque des défenses +{p}', key: 'ks_guns', pct: true },
     { id: 'cmd_cost', branch: 'cmd', tier: 1, name: 'Logistique', icon: 'hydrogen', max: 3, cost: 1, desc: 'Ordres {p} moins chers par rang', key: 'meta_cost', pct: true },
     { id: 'cmd_over', branch: 'cmd', tier: 2, name: 'Surcharge améliorée', icon: 'over', max: 3, cost: 2, desc: 'Surcharge +{v} par rang', key: 'meta_over', mult: true },
     { id: 'cmd_shield', branch: 'cmd', tier: 2, name: 'Bouclier renforcé', icon: 'shield', max: 2, cost: 2, desc: 'Bouclier d’urgence +{v} par rang', key: 'meta_shieldorder', mult: true },
     { id: 'cmd_focus', branch: 'cmd', tier: 3, name: 'Tir de précision', icon: 'focus', max: 3, cost: 3, desc: 'Tir concentré : attaque +{p} par rang', key: 'meta_focus', pct: true },
-    { id: 'cmd_free', branch: 'cmd', tier: 3, name: 'Ordre d’ouverture', icon: 'over', max: 1, cost: 3, desc: 'Le premier ordre de chaque bataille est gratuit' },
-    { id: 'cmd_round', branch: 'cmd', tier: 4, name: 'Commandant vétéran', icon: 'star', max: 1, cost: 6, desc: 'Les batailles durent un round de plus' },
+    { id: 'cmd_free', branch: 'cmd', tier: 4, name: 'Ordre d’ouverture', icon: 'over', max: 1, cost: 4, desc: 'Le premier ordre de chaque bataille est gratuit' },
+    { id: 'cmd_round', branch: 'cmd', tier: 5, group: 'cmd', name: 'Commandant vétéran', icon: 'star', max: 1, cost: 8, desc: 'Les batailles durent un round de plus' },
+    { id: 'ks_cmd_supply', branch: 'cmd', tier: 5, group: 'cmd', name: 'Intendance', icon: 'hydrogen', max: 1, cost: 8, desc: 'Ordres gratuits pendant les {v} premiers rounds', key: 'ks_supply_rounds' },
+    { id: 'adm_crew', branch: 'adm', tier: 1, name: 'Équipage d’élite', icon: 'flag', max: 3, cost: 1, desc: 'Attaque, boucliers et structure de l’amiral +{p} par rang', key: 'meta_flag', pct: true },
+    { id: 'adm_aura', branch: 'adm', tier: 2, name: 'Rayonnement', icon: 'focus', max: 3, cost: 2, desc: 'Aura de commandement +{p} par rang', key: 'meta_aura', pct: true },
+    { id: 'adm_vet', branch: 'adm', tier: 2, name: 'Instruction', icon: 'star', max: 2, cost: 2, desc: 'L’amiral commence avec +{v} de vétérance par rang', key: 'meta_vet_start' },
+    { id: 'adm_lance', branch: 'adm', tier: 3, name: 'Lance affûtée', icon: 'over', max: 3, cost: 3, desc: 'La Lance retire +{p} de la structure de sa cible par rang', key: 'meta_lance_pct', pct: true },
+    { id: 'adm_salvo', branch: 'adm', tier: 4, name: 'Salves', icon: 'attack', max: 2, cost: 4, desc: 'L’amiral tire {v} fois de plus par round, par rang', key: 'meta_salvo' },
+    { id: 'ks_adm_twin', branch: 'adm', tier: 5, group: 'adm', name: 'Double Lance', icon: 'over', max: 1, cost: 8, desc: 'Deux Lances par bataille' },
+    { id: 'ks_adm_mother', branch: 'adm', tier: 5, group: 'adm', name: 'Vaisseau-mère', icon: 'flag', max: 1, cost: 8, desc: 'L’aura de commandement est doublée' },
     // the Ascension branch: paid in shards, earned by winning a run
     { id: 'asc_heritage', branch: 'asc', tier: 1, name: 'Héritage', icon: 'star', max: 3, cost: 1, currency: 'shards', desc: 'Commence avec +1 niveau d’Armement, Boucliers et Blindage par rang' },
     { id: 'asc_reserve', branch: 'asc', tier: 2, name: 'Réserves', icon: 'hydrogen', max: 3, cost: 2, currency: 'shards', desc: 'Hydrogène de base +{v}/h par rang', key: 'asc_hydro' },
